@@ -70,8 +70,8 @@ function [stateDt,simOut] = equ_2nd_order_sys(t,state,param)
     % controller
     bw = param.ctr_bw;
     filt_bw = 5*bw;     % low pass filter bandwidth for diff e1
-    Kp = (a+b)/c*bw;
-    Ki = (a*b)/c*bw;
+    Kp = a/c*bw;
+    Ki = b/c*bw;
     Kd = 1/c*bw;
 
     %% substitute state
@@ -100,7 +100,7 @@ function [stateDt,simOut] = equ_2nd_order_sys(t,state,param)
     %% plant motor
     % plant
     x1Dt = x2;
-    x2Dt = -a*b*x1 -(a+b)*x2 + c*u;
+    x2Dt = -b*x1 -a*x2 + c*u;
 
     %% return
     stateDt = [x1Dt;
